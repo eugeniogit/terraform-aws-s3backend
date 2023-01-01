@@ -13,17 +13,16 @@ locals {
 resource "aws_resourcegroups_group" "resourcegroups_group" {
   name = "${local.namespace}-group"
   resource_query {
-    query = <<JSON
+    query = jsonencode(
         {
-            "ResourceTypeFilters": ["AWS::AllSupported"],
-            "TagFilters": [
+            ResourceTypeFilters: ["AWS::AllSupported"],
+            TagFilters: [
                 {
-                    "Key": "ResourceGroup",
-                    "Values": ["${local.namespace}"]
+                    Key: "ResourceGroup",
+                    Values: ["${local.namespace}"]
                 }
             ]
-        }
-    JSON
+        })
   }
 }
 
