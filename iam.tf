@@ -18,7 +18,8 @@ resource "aws_iam_role" "iam_role" {
                     "Effect": "Allow"
                 }
             ]
-        } EOF
+        }
+    EOF
     tags = {
         ResourceGroup = local.namespace
     }

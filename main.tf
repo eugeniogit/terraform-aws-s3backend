@@ -22,7 +22,8 @@ resource "aws_resourcegroups_group" "resourcegroups_group" {
                     "Values": ["${local.namespace}"]
                 }
             ]
-        } JSON
+        }
+    JSON
     }
 }
 
@@ -71,3 +72,4 @@ resource "aws_dynamodb_table" "dynamodb_table" {
         ResourceGroup = local.namespace
     }
 }
+
