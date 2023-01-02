@@ -14,7 +14,7 @@ resource "aws_iam_role" "iam_role" {
           Action = "sts:AssumeRole",
           Principal = {
             type = "AWS"
-            identifiers = jsonencode(local.principal_arns)
+            identifiers = local.principal_arns
           },
           Effect = "Allow"
         }
