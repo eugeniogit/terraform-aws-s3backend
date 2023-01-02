@@ -35,21 +35,23 @@ resource "aws_kms_key" "kms_key" {
 resource "aws_s3_bucket" "s3_bucket" {
   bucket        = "${local.namespace}-state-bucket"
   force_destroy = var.force_destroy_state
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm     = "aws:kms"
-        kms_master_key_id = aws_kms_key.kms_key.arn
-      }
-    }
-  }
   tags = {
     ResourceGroup = local.namespace
   }
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "example" {
+  bucket = aws_s3_bucket.s3_bucket.id
+  rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm     = "aws:kms"
+        kms_master_key_id = aws_kms_key.kms_key.arn
+      }
+    }
+}
+
 resource "aws_s3_bucket_versioning" "s3_bucket_versioning" {
-  bucket        = aws_s3_bucket.s3_bucket.name
+  bucket        = aws_s3_bucket.s3_bucket.id
   versioning_configuration {
     status = "Enabled"
   }
